@@ -3,19 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Expense Proj</title>
+    <link rel="stylesheet" href="indexStyle.css">
 </head>
 <body>
 <h1>Expense Project One</h1>
 
 
-<h3>Add Expense</h3>
+<h2>Add Expense</h2>
 <form action="/expenses" method="post">
     <input type="text" placeholder="Expense Item" name="expenseItem">
     <input type="number" placeholder="Amount" name="amount">
     <button type="submit">Submit</button>
 </form>
 
+<ul class="expenses">
+    <% for(let i = 0; i < expenses.length; i++) {%>
+    <li class="expense">
+        <span><%=expenses[i].expenseItem %></span>
+        <span><%=expenses[i].amount %></span>
+    </li>
+    <% } %>
+</ul>
 
-<!--<script src="index.js"></script>-->
+
+<script src="index.js"></script>
 </body>
 </html>
