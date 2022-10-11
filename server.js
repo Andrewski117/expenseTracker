@@ -9,10 +9,11 @@ const PORT = process.env.PORT || 8000;
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json());
 
 MongoClient.connect(connectionString, { useUnifiedTopology: true})
     .then(client => {
-    console.log('Connect to the DB');
+    console.log('Connected to the DB');
     const db = client.db('expense-db');
     const expenseCollection = db.collection('expenses');
     
@@ -33,6 +34,26 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true})
             })
             .catch(error => console.error(error));
         
+    })
+        
+    //put request coming from a fetch from the index.js file
+    app.put('/expenses', (req,res) =>{
+        expenseCollection.findOneAndUpdate(
+            {expenseItem: 'dog food'},
+            {
+                $set:{
+                    expenseItem: req.body.expenseItem,
+                    amount: req.body.amount
+                }
+            },
+            {
+                upsert: true
+            }
+        )
+            .then(result => {
+                res.json('Success');
+            })
+            .catch(error => console.error(error))
     })
 
     app.listen(PORT, () => {
