@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 const PORT = process.env.PORT || 8000;
-
+const connectionString = "mongodb+srv://andrewski117:MongoDB117@cluster0.hsnqk7p.mongodb.net/?retryWrites=true&w=majority";
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -54,6 +54,18 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true})
                 res.json('Success');
             })
             .catch(error => console.error(error))
+    })
+    app.delete('/expenses', (req, res) => {
+        expenseCollection.deleteOne(
+            {name : req.body.expenseItem}
+        )
+            .then(result => {
+                if(result.deletedCount === 0){
+                    return res.json('No testing item to delete')
+                }
+                res.json('Deleted testing item');
+            })
+            .catch(err => console.error(err))
     })
 
     app.listen(PORT, () => {
