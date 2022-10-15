@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 const PORT = process.env.PORT || 8000;
-const connectionString = "mongodb+srv://andrewski117:MongoDB117@cluster0.hsnqk7p.mongodb.net/?retryWrites=true&w=majority";
+
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
