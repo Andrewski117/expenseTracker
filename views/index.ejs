@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Expense Proj</title>
+    <script src="https://kit.fontawesome.com/2096de5d3f.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="indexStyle.css">
 </head>
 <body>
@@ -19,8 +20,10 @@
 <ul class="expenses">
     <% for(let i = 0; i < expenses.length; i++) {%>
     <li class="expense">
-        <span><%=expenses[i].expenseItem %></span>
-        <span><%=expenses[i].amount %></span>
+        <span class="description">Item </span><span><%=expenses[i].expenseItem + ' ' %></span>
+        <span class="description">Cost </span><span><%=expenses[i].amount + ' ' %></span>
+        <span class="description">Date </span><span><%=expenses[i].entryDate %></span>
+        <i class="fa-solid fa-trash-can"></i>
     </li>
     <% } %>
 </ul>

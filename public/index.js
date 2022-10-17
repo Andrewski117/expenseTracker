@@ -1,6 +1,11 @@
 ﻿const update = document.querySelector("#update-button");
 const deleteButton = document.querySelector("#delete-button");
 const messageDiv = document.querySelector('#message');
+const trashCan = document.querySelectorAll('.fa-trash-can');
+
+Array.from(trashCan).forEach((elem) => {
+    elem.addEventListener('click', deleteExpense);
+})
 
 update.addEventListener('click', _ => {
     fetch('/expenses', {
@@ -41,3 +46,27 @@ deleteButton.addEventListener('click', _ => {
         .catch(err => console.error(err))
     
 })
+
+async function deleteExpense(){
+    const expenseItem = this.parentNode.childNodes[2].innerText;
+    const expenseAmount = this.parentNode.childNodes[5].innerText;
+    const theDate = this.parentNode.childNodes[8].innerText;
+    console.log(theDate);
+    try{
+        const response = await fetch('deleteExpense', {
+            method: 'delete',
+            headers: {'Content-Type' : 'application/json'},
+            body: JSON.stringify({
+                'expenseItemD' : expenseItem,
+                'amountD' : expenseAmount,
+                'entryDateD' : theDate
+            })
+        })
+        const data = await response.json();
+        console.log(data);
+        location.reload();
+    }
+    catch(err){
+        console.error(err);
+    }
+}

@@ -11,3 +11,11 @@ span{
 #updateDiv{
     margin-top: 3%;
 }
+
+.description{
+    background-color: gray;
+}
+i{
+    font-size: 2rem;
+    margin-left: 10px;
+}
